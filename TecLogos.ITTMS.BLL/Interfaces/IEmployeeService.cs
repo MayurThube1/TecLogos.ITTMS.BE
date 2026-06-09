@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using TecLogos.ITTMS.Models.DTOs;
 
 namespace TecLogos.ITTMS.BLL.Interfaces
 {
-    internal interface IEmployeeService
+    public interface IEmployeeService
     {
+        IEnumerable<EmployeeDTO> GetAll();
+        EmployeeDTO? GetById(int id);
     }
 }

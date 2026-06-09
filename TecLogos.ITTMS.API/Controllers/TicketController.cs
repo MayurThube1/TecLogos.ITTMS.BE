@@ -1,6 +1,12 @@
-﻿namespace TecLogos.ITTMS.BE.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace TecLogos.ITTMS.API.Controllers
 {
-    public class TicketController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TicketController : ControllerBase
     {
+        [HttpGet("ping")]
+        public IActionResult Ping() => Ok("Ticket controller is alive");
     }
 }

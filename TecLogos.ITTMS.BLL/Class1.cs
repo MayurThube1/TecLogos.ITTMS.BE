@@ -1,6 +1,6 @@
 ﻿namespace TecLogos.ITTMS.BLL
 {
-    public class Class1
+    internal class Class1
     {
 
     }

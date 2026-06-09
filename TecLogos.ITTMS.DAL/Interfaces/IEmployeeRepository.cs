@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using TecLogos.ITTMS.Models.Entities;
 
 namespace TecLogos.ITTMS.DAL.Interfaces
 {
-    internal interface IEmployeeRepository
+    public interface IEmployeeRepository
     {
+        IEnumerable<Employee> GetAll();
+        Employee? GetById(int id);
     }
 }

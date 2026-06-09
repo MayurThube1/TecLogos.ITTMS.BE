@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TecLogos.ITTMS.Models.Entities
+﻿namespace TecLogos.ITTMS.Models.Entities
 {
-    internal class Employee
+    public class Employee
     {
+        public int Id { get; set; }
+        public string? Name { get; set; }
     }
 }

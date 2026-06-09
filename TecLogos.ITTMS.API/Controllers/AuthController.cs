@@ -1,6 +1,12 @@
-﻿namespace TecLogos.ITTMS.BE.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace TecLogos.ITTMS.API.Controllers
 {
-    public class AuthController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
+        [HttpGet("ping")]
+        public IActionResult Ping() => Ok("Auth controller is alive");
     }
 }
