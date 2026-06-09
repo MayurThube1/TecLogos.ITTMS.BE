@@ -1,4 +1,6 @@
-﻿namespace TeclogosITTMS.Models.Common
+﻿using System.Collections.Generic;
+
+namespace TecLogos.ITTMS.Models.Common
 {
     public class ApiResponse<T>
     {

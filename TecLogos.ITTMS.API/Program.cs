@@ -1,4 +1,3 @@
-
 using TecLogos.ITTMS.API.Extensions;
 
 namespace TecLogos.ITTMS.API
@@ -11,25 +10,21 @@ namespace TecLogos.ITTMS.API
 
             // Add services to the container.
             builder.Services.AddControllers();
-            // OpenAPI / Swagger
-            builder.Services.AddOpenApi();
+            // OpenAPI / Swagger (disabled)
+            // builder.Services.AddLocalOpenApi();
             // Application services (DB, Repositories, BLL)
             builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // Swagger middleware disabled.
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-            app.MapControllers();
+            ControllerActionEndpointConventionBuilder controllerActionEndpointConventionBuilder = app.MapControllers();
 
             app.Run();
         }

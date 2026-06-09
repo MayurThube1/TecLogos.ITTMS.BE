@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+// OpenAPI types removed because Swagger generation is disabled here
 using TecLogos.ITTMS.BLL.Interfaces;
 using TecLogos.ITTMS.BLL.Services;
 using TecLogos.ITTMS.DAL.DBHelper;
+using TecLogos.ITTMS.DAL.Interfaces;
 using TecLogos.ITTMS.DAL.Repositories;
 
 namespace TecLogos.ITTMS.API.Extensions
@@ -10,13 +11,10 @@ namespace TecLogos.ITTMS.API.Extensions
     public static class ServiceExtensions
     {
         // Registers OpenAPI (Swagger) and application services.
-        public static IServiceCollection AddOpenApi(this IServiceCollection services)
+        public static IServiceCollection AddLocalOpenApi(this IServiceCollection services)
         {
+            // Keep API explorer registration, but do not register Swagger generation here.
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TecLogos ITTMS API", Version = "v1" });
-            });
 
             return services;
         }

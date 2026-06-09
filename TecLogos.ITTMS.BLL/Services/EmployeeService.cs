@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using TecLogos.ITTMS.BLL.Interfaces;
-using TecLogos.ITTMS.DAL.Interfaces;
 using TecLogos.ITTMS.Models.DTOs;
 using TecLogos.ITTMS.Models.Entities;
+using TecLogos.ITTMS.DAL.Interfaces;
 
 namespace TecLogos.ITTMS.BLL.Services
 {
