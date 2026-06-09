@@ -7,11 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TecLogos.ITTMS.BLL\TecLogos.ITTMS.BLL.csproj" />
+    <ProjectReference Include="..\TecLogos.ITTMS.DAL\TecLogos.ITTMS.DAL.csproj" />
+    <ProjectReference Include="..\TecLogos.ITTMS.Models\TecLogos.ITTMS.Models.csproj" />
+    <ProjectReference Include="..\TecLogos.ITTMS.Common\TecLogos.ITTMS.Common.csproj" />
   </ItemGroup>
 
 </Project>

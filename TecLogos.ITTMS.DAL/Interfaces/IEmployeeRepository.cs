@@ -1,4 +1,3 @@
-﻿using System.Collections.Generic;
 using TecLogos.ITTMS.Models.Entities;
 
 namespace TecLogos.ITTMS.DAL.Interfaces
@@ -6,6 +5,6 @@ namespace TecLogos.ITTMS.DAL.Interfaces
     public interface IEmployeeRepository
     {
         IEnumerable<Employee> GetAll();
-        Employee? GetById(int id);
+        Employee? GetById(Guid id);
     }
 }

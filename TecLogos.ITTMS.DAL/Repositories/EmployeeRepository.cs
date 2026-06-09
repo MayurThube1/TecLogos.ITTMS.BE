@@ -1,4 +1,3 @@
-﻿using System.Collections.Generic;
 using TecLogos.ITTMS.DAL.Interfaces;
 using TecLogos.ITTMS.Models.Entities;
 
@@ -12,7 +11,7 @@ namespace TecLogos.ITTMS.DAL.Repositories
             return new List<Employee>();
         }
 
-        public Employee? GetById(int id)
+        public Employee? GetById(Guid id)
         {
             // TODO: implement DB access
             return null;
