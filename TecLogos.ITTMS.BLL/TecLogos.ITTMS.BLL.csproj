@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.8" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TecLogos.ITTMS.DAL\TecLogos.ITTMS.DAL.csproj" />
+    <ProjectReference Include="..\TecLogos.ITTMS.Models\TecLogos.ITTMS.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TecLogos.ITTMS.Models\TecLogos.ITTMS.Models.csproj" />
     <ProjectReference Include="..\TecLogos.ITTMS.DAL\TecLogos.ITTMS.DAL.csproj" />
   </ItemGroup>
