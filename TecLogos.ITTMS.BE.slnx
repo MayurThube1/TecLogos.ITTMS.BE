@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="TecLogos.ITTMS.API/TecLogos.ITTMS.API.csproj" />
+  <Project Path="TecLogos.ITTMS.BLL/TecLogos.ITTMS.BLL.csproj" />
+  <Project Path="TecLogos.ITTMS.Common/TecLogos.ITTMS.Common.csproj" />
+  <Project Path="TecLogos.ITTMS.DAL/TecLogos.ITTMS.DAL.csproj" />
+  <Project Path="TecLogos.ITTMS.Models/TecLogos.ITTMS.Models.csproj" />
+</Solution>
