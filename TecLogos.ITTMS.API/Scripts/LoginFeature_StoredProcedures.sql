@@ -117,7 +117,36 @@ END
 GO
 
 -- =============================================================================
--- 5. Seed Data: Roles
+-- 5. Clean Up Existing Test Data
+--    Prevents UNIQUE constraint violations and duplicates if run multiple times.
+-- =============================================================================
+DECLARE @SystemUserID_Clean UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000001';
+
+-- Delete existing test junction roles
+DELETE FROM EmployeeRoles 
+WHERE EmployeeID IN (
+    SELECT ID FROM Employees 
+    WHERE Email IN ('admin@company.com', 'support@company.com', 'lead@company.com', 'employee@company.com')
+);
+
+-- Delete existing test authentication records
+DELETE FROM Authentication 
+WHERE EmployeeID IN (
+    SELECT ID FROM Employees 
+    WHERE Email IN ('admin@company.com', 'support@company.com', 'lead@company.com', 'employee@company.com')
+);
+
+-- Delete existing test employees
+DELETE FROM Employees 
+WHERE Email IN ('admin@company.com', 'support@company.com', 'lead@company.com', 'employee@company.com');
+
+-- Delete existing roles to prevent duplicates
+DELETE FROM [Role] 
+WHERE [Name] IN ('Employee', 'IT Support Engineer', 'Team Lead', 'Administrator');
+GO
+
+-- =============================================================================
+-- 6. Seed Data: Roles
 --    Insert the four roles expected by the frontend.
 -- =============================================================================
 DECLARE @SystemUserID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000001';
@@ -131,7 +160,7 @@ VALUES
 GO
 
 -- =============================================================================
--- 6. Seed Data: Test Users
+-- 7. Seed Data: Test Users
 --    Creates four test employees with BCrypt-hashed passwords matching their roles.
 -- =============================================================================
 DECLARE @SysUser UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000001';
@@ -140,11 +169,11 @@ DECLARE @SysUser UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000001';
 -- User 1: Administrator (admin@company.com / Admin@123)
 -- -----------------------------------------------------------------------------
 DECLARE @AdminEmployeeID UNIQUEIDENTIFIER = NEWID();
-DECLARE @AdminPasswordHash VARCHAR(255) = '$2a$11$K8GpMPmOBIq.0FdKvFHRCewZGJiP7UdshFZfV/eJB.DPxnDXBZDEe';
+DECLARE @AdminPasswordHash VARCHAR(255) = '$2a$11$8yTfd0Nc9dfTNTD793XTmeOL9pHj1i7M4eWsOuEdV9oLugyJsSwY6';
 DECLARE @AdminRoleID UNIQUEIDENTIFIER;
 
 INSERT INTO Employees (ID, FirstName, LastName, Email, CreatedByID, IsActive, IsDeleted)
-VALUES (@AdminEmployeeID, 'Admin', 'User', 'admin@company.com', @SysUser, 1, 0);
+VALUES (@AdminEmployeeID, 'Amir', 'Admin', 'admin@company.com', @SysUser, 1, 0);
 
 INSERT INTO Authentication (ID, EmployeeID, LoginTime, IPAddress, PasswordHash, CreatedByID, IsActive, IsDeleted)
 VALUES (NEWID(), @AdminEmployeeID, GETUTCDATE(), '127.0.0.1', @AdminPasswordHash, @SysUser, 1, 0);

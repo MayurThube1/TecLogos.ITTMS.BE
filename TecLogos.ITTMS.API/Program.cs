@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using TecLogos.ITTMS.API.Extensions;
 using TecLogos.ITTMS.API.Middleware;
 
@@ -11,12 +13,48 @@ namespace TecLogos.ITTMS.API
 
             // Add services to the container.
             builder.Services.AddControllers();
-            builder.Services.AddOpenApi();
+
+            // Configure Swagger/Swashbuckle
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "TecLogos ITTMS API",
+                    Version = "v1",
+                    Description = "IT Ticket & Asset Management System API"
+                });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter: Bearer {your JWT token}"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
             // Register application services (DI for repos, services, DB)
-            // OpenAPI / Swagger (disabled)
-            // builder.Services.AddLocalOpenApi();
-            // Application services (DB, Repositories, BLL)
             builder.Services.AddApplicationServices();
 
             // Configure JWT authentication
@@ -30,9 +68,15 @@ namespace TecLogos.ITTMS.API
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ITTMS API v1");
+                    c.RoutePrefix = "swagger";
+                    c.DisplayRequestDuration();
+                    c.DefaultModelsExpandDepth(-1);
+                });
             }
-            // Swagger middleware disabled.
 
             // Global exception handler (must be first in pipeline)
             app.UseMiddleware<ExceptionMiddleware>();
@@ -50,7 +94,6 @@ namespace TecLogos.ITTMS.API
             app.UseMiddleware<JwtMiddleware>();
 
             app.MapControllers();
-            ControllerActionEndpointConventionBuilder controllerActionEndpointConventionBuilder = app.MapControllers();
 
             app.Run();
         }
