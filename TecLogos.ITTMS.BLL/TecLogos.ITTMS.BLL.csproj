@@ -17,4 +17,9 @@
     <ProjectReference Include="..\TecLogos.ITTMS.Models\TecLogos.ITTMS.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TecLogos.ITTMS.Models\TecLogos.ITTMS.Models.csproj" />
+    <ProjectReference Include="..\TecLogos.ITTMS.DAL\TecLogos.ITTMS.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

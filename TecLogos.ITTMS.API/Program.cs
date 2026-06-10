@@ -14,6 +14,9 @@ namespace TecLogos.ITTMS.API
             builder.Services.AddOpenApi();
 
             // Register application services (DI for repos, services, DB)
+            // OpenAPI / Swagger (disabled)
+            // builder.Services.AddLocalOpenApi();
+            // Application services (DB, Repositories, BLL)
             builder.Services.AddApplicationServices();
 
             // Configure JWT authentication
@@ -29,6 +32,7 @@ namespace TecLogos.ITTMS.API
             {
                 app.MapOpenApi();
             }
+            // Swagger middleware disabled.
 
             // Global exception handler (must be first in pipeline)
             app.UseMiddleware<ExceptionMiddleware>();
@@ -46,6 +50,7 @@ namespace TecLogos.ITTMS.API
             app.UseMiddleware<JwtMiddleware>();
 
             app.MapControllers();
+            ControllerActionEndpointConventionBuilder controllerActionEndpointConventionBuilder = app.MapControllers();
 
             app.Run();
         }
