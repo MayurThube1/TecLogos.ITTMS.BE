@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TecLogos.ITTMS.BLL.Interfaces;
 using TecLogos.ITTMS.Models.DTOs;
-using TeclogosITTMS.Models.Common;
+using TecLogos.ITTMS.Models.Common;
 
 
 
