@@ -1,6 +1,6 @@
 using System.Net;
 using System.Text.Json;
-using TeclogosITTMS.Models.Common;
+using TecLogos.ITTMS.Models.Common;
 
 namespace TecLogos.ITTMS.API.Middleware
 {
