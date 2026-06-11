@@ -25,10 +25,12 @@ namespace TecLogos.ITTMS.API.Extensions
             // Repositories (scoped — one instance per HTTP request)
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IEmployeeDashboardRepository, EmployeeDashboardRepository>();
+            services.AddScoped<ITeamLeadDashboardRepository, TeamLeadDashboardRepository>();
 
             // Business logic services (scoped)
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmployeeDashboardService, EmployeeDashboardService>();
+            services.AddScoped<ITeamLeadDashboardService, TeamLeadDashboardService>();
 
             return services;
         }
