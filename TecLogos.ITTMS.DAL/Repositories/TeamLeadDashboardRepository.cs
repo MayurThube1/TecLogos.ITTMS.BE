@@ -134,5 +134,28 @@ namespace TecLogos.ITTMS.DAL.Repositories
 
             return await connection.QueryAsync<EngineerLookupDTO>(query);
         }
+
+        /// <inheritdoc />
+        public async Task<EmployeeTicketDetailDTO?> GetTicketDetailAsync(Guid ticketId)
+        {
+            using var connection = _dbConnection.GetConnection();
+            var parameters = new DynamicParameters();
+            parameters.Add("@TicketID", ticketId);
+
+            using var multi = await connection.QueryMultipleAsync(
+                "sp_GetTeamLeadTicketDetail",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            var ticket = await multi.ReadFirstOrDefaultAsync<EmployeeTicketDetailDTO>();
+            if (ticket == null)
+                return null;
+
+            ticket.Comments = (await multi.ReadAsync<TicketCommentDTO>()).ToList();
+            ticket.Attachments = (await multi.ReadAsync<TicketAttachmentDTO>()).ToList();
+
+            return ticket;
+        }
     }
 }

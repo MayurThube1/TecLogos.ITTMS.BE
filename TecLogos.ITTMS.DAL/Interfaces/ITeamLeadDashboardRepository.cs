@@ -44,5 +44,10 @@ namespace TecLogos.ITTMS.DAL.Interfaces
         /// Fetches engineers list using inline query.
         /// </summary>
         Task<IEnumerable<EngineerLookupDTO>> GetEngineersLookupAsync();
+
+        /// <summary>
+        /// Calls sp_GetTeamLeadTicketDetail.
+        /// </summary>
+        Task<EmployeeTicketDetailDTO?> GetTicketDetailAsync(Guid ticketId);
     }
 }

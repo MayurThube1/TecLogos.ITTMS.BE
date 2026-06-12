@@ -61,5 +61,11 @@ namespace TecLogos.ITTMS.BLL.Services
         {
             return await _repository.GetEngineersLookupAsync();
         }
+
+        /// <inheritdoc />
+        public async Task<EmployeeTicketDetailDTO?> GetTicketDetailAsync(Guid ticketId)
+        {
+            return await _repository.GetTicketDetailAsync(ticketId);
+        }
     }
 }

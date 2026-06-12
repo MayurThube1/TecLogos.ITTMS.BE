@@ -26,11 +26,13 @@ namespace TecLogos.ITTMS.API.Extensions
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IEmployeeDashboardRepository, EmployeeDashboardRepository>();
             services.AddScoped<ITeamLeadDashboardRepository, TeamLeadDashboardRepository>();
+            services.AddScoped<IAdminDashboardRepository, AdminDashboardRepository>();
 
             // Business logic services (scoped)
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmployeeDashboardService, EmployeeDashboardService>();
             services.AddScoped<ITeamLeadDashboardService, TeamLeadDashboardService>();
+            services.AddScoped<IAdminDashboardService, AdminDashboardService>();
 
             return services;
         }

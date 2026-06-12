@@ -17,5 +17,6 @@ namespace TecLogos.ITTMS.BLL.Interfaces
         Task<IEnumerable<EngineerWorkloadDTO>> GetEngineerWorkloadAsync();
         Task<IEnumerable<SlaOverviewDTO>> GetSlaOverviewAsync();
         Task<IEnumerable<EngineerLookupDTO>> GetEngineersLookupAsync();
+        Task<EmployeeTicketDetailDTO?> GetTicketDetailAsync(Guid ticketId);
     }
 }

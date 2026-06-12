@@ -187,5 +187,26 @@ namespace TecLogos.ITTMS.API.Controllers
 
             return Ok(ApiResponse<IEnumerable<EngineerLookupDTO>>.Ok(engineers, "Engineers lookup retrieved."));
         }
+
+        /// <summary>
+        /// GET /api/teamlead/dashboard/tickets/{ticketId}
+        /// Retrieves full details for a ticket (accessible to Team Lead and Administrator).
+        /// </summary>
+        [HttpGet("tickets/{ticketId:guid}")]
+        [ProducesResponseType(typeof(ApiResponse<EmployeeTicketDetailDTO>), 200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetTicketDetail(Guid ticketId)
+        {
+            var leadId = GetEmployeeIdFromToken();
+            _logger.LogInformation("Ticket detail requested for TicketID: {TicketID} by LeadID: {LeadID}", ticketId, leadId);
+
+            var detail = await _dashboardService.GetTicketDetailAsync(ticketId);
+
+            if (detail == null)
+                return NotFound(ApiResponse<object>.Fail("Ticket not found or access denied."));
+
+            return Ok(ApiResponse<EmployeeTicketDetailDTO>.Ok(detail, "Ticket detail retrieved."));
+        }
     }
 }
