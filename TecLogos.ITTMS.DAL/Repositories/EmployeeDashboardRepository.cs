@@ -22,12 +22,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<EmployeeDashboardSummaryDTO?> GetDashboardSummaryAsync(Guid employeeId)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
 
             return await connection.QueryFirstOrDefaultAsync<EmployeeDashboardSummaryDTO>(
                 "sp_GetEmployeeDashboardSummary",
-                parameters,
+                new { EmployeeID = employeeId },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -36,15 +34,16 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<PagedResultDTO<EmployeeTicketListDTO>> GetTicketsAsync(Guid employeeId, string? status, int pageNumber, int pageSize)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
-            parameters.Add("@Status", status);
-            parameters.Add("@PageNumber", pageNumber);
-            parameters.Add("@PageSize", pageSize);
 
             using var multi = await connection.QueryMultipleAsync(
                 "sp_GetEmployeeTickets",
-                parameters,
+                new
+                {
+                    EmployeeID = employeeId,
+                    Status = status,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                },
                 commandType: CommandType.StoredProcedure
             );
 
@@ -64,13 +63,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<EmployeeTicketDetailDTO?> GetTicketDetailAsync(Guid ticketId, Guid employeeId)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@TicketID", ticketId);
-            parameters.Add("@EmployeeID", employeeId);
 
             using var multi = await connection.QueryMultipleAsync(
                 "sp_GetEmployeeTicketDetail",
-                parameters,
+                new { TicketID = ticketId, EmployeeID = employeeId },
                 commandType: CommandType.StoredProcedure
             );
 
@@ -88,18 +84,19 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<RaiseTicketResponseDTO?> RaiseTicketAsync(Guid employeeId, RaiseTicketRequestDTO request)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
-            parameters.Add("@Category", request.Category);
-            parameters.Add("@SubCategory", request.SubCategory);
-            parameters.Add("@Priority", request.Priority);
-            parameters.Add("@Subject", request.Subject);
-            parameters.Add("@Description", request.Description);
-            parameters.Add("@AssetType", request.AssetType);
 
             return await connection.QueryFirstOrDefaultAsync<RaiseTicketResponseDTO>(
                 "sp_RaiseTicket",
-                parameters,
+                new
+                {
+                    EmployeeID = employeeId,
+                    Category = request.Category,
+                    SubCategory = request.SubCategory,
+                    Priority = request.Priority,
+                    Subject = request.Subject,
+                    Description = request.Description,
+                    AssetType = request.AssetType
+                },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -108,12 +105,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<IEnumerable<EmployeeAssetDTO>> GetAssetsAsync(Guid employeeId)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
 
             return await connection.QueryAsync<EmployeeAssetDTO>(
                 "sp_GetEmployeeAssets",
-                parameters,
+                new { EmployeeID = employeeId },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -122,12 +117,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<EmployeeProfileDTO?> GetProfileAsync(Guid employeeId)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
 
             return await connection.QueryFirstOrDefaultAsync<EmployeeProfileDTO>(
                 "sp_GetEmployeeProfile",
-                parameters,
+                new { EmployeeID = employeeId },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -136,15 +129,16 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<SubmitFeedbackResponseDTO?> SubmitFeedbackAsync(Guid ticketId, Guid employeeId, SubmitFeedbackRequestDTO request)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@TicketID", ticketId);
-            parameters.Add("@EmployeeID", employeeId);
-            parameters.Add("@Rating", request.Rating);
-            parameters.Add("@Comments", request.Comments);
 
             return await connection.QueryFirstOrDefaultAsync<SubmitFeedbackResponseDTO>(
                 "sp_SubmitTicketFeedback",
-                parameters,
+                new
+                {
+                    TicketID = ticketId,
+                    EmployeeID = employeeId,
+                    Rating = request.Rating,
+                    Comments = request.Comments
+                },
                 commandType: CommandType.StoredProcedure
             );
         }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -18,10 +18,6 @@
     <ProjectReference Include="..\TecLogos.ITTMS.DAL\TecLogos.ITTMS.DAL.csproj" />
     <ProjectReference Include="..\TecLogos.ITTMS.Models\TecLogos.ITTMS.Models.csproj" />
     <ProjectReference Include="..\TecLogos.ITTMS.Common\TecLogos.ITTMS.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

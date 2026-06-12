@@ -22,12 +22,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<Employee?> GetEmployeeByEmailAsync(string email)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@Email", email);
 
             return await connection.QueryFirstOrDefaultAsync<Employee>(
                 "sp_GetEmployeeByEmail",
-                parameters,
+                new { Email = email },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -36,12 +34,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<string?> GetPasswordHashByEmployeeIdAsync(Guid employeeId)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
 
             return await connection.QueryFirstOrDefaultAsync<string>(
                 "sp_GetPasswordHashByEmployeeId",
-                parameters,
+                new { EmployeeID = employeeId },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -50,12 +46,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task<string?> GetEmployeeRoleAsync(Guid employeeId)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
 
             return await connection.QueryFirstOrDefaultAsync<string>(
                 "sp_GetEmployeeRole",
-                parameters,
+                new { EmployeeID = employeeId },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -64,13 +58,10 @@ namespace TecLogos.ITTMS.DAL.Repositories
         public async Task LogLoginAsync(Guid employeeId, string ipAddress)
         {
             using var connection = _dbConnection.GetConnection();
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmployeeID", employeeId);
-            parameters.Add("@IPAddress", ipAddress);
 
             await connection.ExecuteAsync(
                 "sp_LogEmployeeLogin",
-                parameters,
+                new { EmployeeID = employeeId, IPAddress = ipAddress },
                 commandType: CommandType.StoredProcedure
             );
         }
