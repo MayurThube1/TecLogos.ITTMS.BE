@@ -1,11 +1,12 @@
-﻿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
+
   "profiles": {
-    "http": {
+    "TecLogos.ITTMS.API": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:5006",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -14,8 +15,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5006",
-      //"applicationUrl": "https://localhost:7112;http://localhost:5006",
+      "applicationUrl": "https://localhost:7112;http://localhost:5006",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

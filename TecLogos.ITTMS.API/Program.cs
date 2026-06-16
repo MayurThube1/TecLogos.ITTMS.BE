@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using TecLogos.ITTMS.API.Extensions;
 using TecLogos.ITTMS.API.Middleware;
+using TecLogos.ITTMS.Common.Constants;
 
 namespace TecLogos.ITTMS.API
 {
@@ -52,6 +53,9 @@ namespace TecLogos.ITTMS.API
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+
+                // Resolve schema ID conflicts by using full type names
+                c.CustomSchemaIds(type => type.FullName);
             });
 
             // Register application services (DI for repos, services, DB)
@@ -62,6 +66,9 @@ namespace TecLogos.ITTMS.API
 
             // Configure CORS for React frontend
             builder.Services.AddCorsPolicy();
+
+            // Load app constants dynamically from configuration
+            AppConstants.LoadFromConfiguration(builder.Configuration);
 
             var app = builder.Build();
 
@@ -81,7 +88,10 @@ namespace TecLogos.ITTMS.API
             // Global exception handler (must be first in pipeline)
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseHttpsRedirection();
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
 
             // CORS must come before auth
             app.UseCors("AllowFrontend");
