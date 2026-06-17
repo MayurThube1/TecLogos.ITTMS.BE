@@ -12,7 +12,7 @@ namespace TecLogos.ITTMS.BLL.Interfaces
     public interface IITSupportEngineerService
     {
         Task<PagedResultDTO<AssignedTicketDTO>> GetAssignedTicketsAsync(Guid engineerId, string? status, int pageNumber, int pageSize);
-        Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, string? remarks, Guid updatedById);
+        Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, Guid updatedById);
         Task<bool> AddWorkNoteAsync(Guid ticketId, string noteText, Guid commentedById);
         Task<bool> AddResolutionAsync(Guid ticketId, string resolutionText, Guid commentedById);
         Task<bool> EscalateTicketAsync(Guid ticketId, string reason, Guid escalatedById);

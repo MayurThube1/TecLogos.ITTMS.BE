@@ -116,7 +116,7 @@ namespace TecLogos.ITTMS.DAL.Repositories
         }
 
         /// <inheritdoc />
-        public async Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, string? remarks, Guid updatedById)
+        public async Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, Guid updatedById)
         {
             using var connection = _dbConnection.GetConnection();
             if (connection.State != ConnectionState.Open) await connection.OpenAsync();
@@ -162,20 +162,6 @@ namespace TecLogos.ITTMS.DAL.Repositories
                     await connection.ExecuteAsync(updateSlaResolvedSql, new { TicketID = ticketId, Status = status }, transaction);
                 }
 
-                // 3. Optional remarks comment
-                if (!string.IsNullOrWhiteSpace(remarks))
-                {
-                    const string insertCommentSql = @"
-                        INSERT INTO Ticket_Comments (
-                            ID, TicketID, CommentType, CommentText, CommentedByID,
-                            Version, IsActive, IsDeleted, Created, CreatedByID
-                        )
-                        VALUES (
-                            NEWID(), @TicketID, 'CustomerVisible', @Remarks, @CommentedByID,
-                            1, 1, 0, GETUTCDATE(), @CommentedByID
-                        )";
-                    await connection.ExecuteAsync(insertCommentSql, new { TicketID = ticketId, Remarks = remarks, CommentedByID = updatedById }, transaction);
-                }
 
                 transaction.Commit();
                 return true;

@@ -25,7 +25,7 @@ namespace TecLogos.ITTMS.DAL.Interfaces
         /// <summary>
         /// Updates the status of a ticket.
         /// </summary>
-        Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, string? remarks, Guid updatedById);
+        Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, Guid updatedById);
 
         /// <summary>
         /// Adds a work note to a ticket.

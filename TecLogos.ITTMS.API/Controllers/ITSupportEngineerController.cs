@@ -75,7 +75,7 @@ namespace TecLogos.ITTMS.API.Controllers
                 var engineerId = GetEmployeeIdFromToken();
                 _logger.LogInformation("Status update requested for Ticket: {TicketId} to {Status}", request.TicketId, request.Status);
 
-                var success = await _supportService.UpdateTicketStatusAsync(request.TicketId, request.Status, request.Remarks, engineerId);
+                var success = await _supportService.UpdateTicketStatusAsync(request.TicketId, request.Status, engineerId);
                 if (!success)
                     return NotFound(ApiResponse<object>.Fail("Ticket not found or update failed."));
 

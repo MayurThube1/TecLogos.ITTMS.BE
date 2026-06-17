@@ -44,13 +44,13 @@ namespace TecLogos.ITTMS.BLL.Services
         }
 
         /// <inheritdoc />
-        public async Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, string? remarks, Guid updatedById)
+        public async Task<bool> UpdateTicketStatusAsync(Guid ticketId, string status, Guid updatedById)
         {
             if (ticketId == Guid.Empty) throw new ArgumentException("Ticket ID cannot be empty.", nameof(ticketId));
             if (updatedById == Guid.Empty) throw new ArgumentException("Updated By ID cannot be empty.", nameof(updatedById));
             if (string.IsNullOrWhiteSpace(status)) throw new ArgumentException("Status cannot be empty.", nameof(status));
 
-            return await _repository.UpdateTicketStatusAsync(ticketId, status, remarks, updatedById);
+            return await _repository.UpdateTicketStatusAsync(ticketId, status, updatedById);
         }
 
         /// <inheritdoc />
