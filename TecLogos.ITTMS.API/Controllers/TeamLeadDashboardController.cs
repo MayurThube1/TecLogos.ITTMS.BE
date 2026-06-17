@@ -37,7 +37,7 @@ namespace TecLogos.ITTMS.API.Controllers
                            ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(subClaim) || !Guid.TryParse(subClaim, out var employeeId))
-                throw new UnauthorizedAccessException("Invalid or missing employee identifier in token.");
+                throw new UnauthorizedAccessException("Invalid or   missing employee identifier in token.");
 
             return employeeId;
         }
